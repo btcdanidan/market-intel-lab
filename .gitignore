@@ -1,0 +1,14 @@
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+.env
+.venv/
+*.egg-info/
+*.db
+reports/*.md
+!reports/.gitkeep
