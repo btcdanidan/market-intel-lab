@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>market-intel-lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/ui/styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb bg-orb-a"></div>
+    <div class="bg-orb bg-orb-b"></div>
+
+    <main class="layout">
+      <header class="hero card">
+        <div>
+          <p class="eyebrow">Local-First Trading Intelligence</p>
+          <h1>market-intel-lab</h1>
+          <p class="subhead">
+            Analyze spot/perps/options, generate risk-controlled trade memos, and discuss each run with an embedded Codex-style assistant.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <div class="metric">
+            <span class="metric-label">Universe</span>
+            <span class="metric-value">BTC, ETH, SOL, BNB, XRP</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Run Window</span>
+            <span class="metric-value">08:00 UTC daily</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Risk Envelope</span>
+            <span class="metric-value">1.0% / 2.5x / 10% DD</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Run Analysis</h2>
+          <form id="run-form" class="form-grid">
+            <label>
+              Assets (comma-separated)
+              <input name="assets" value="BTC,ETH,SOL,BNB,XRP" />
+            </label>
+            <label>
+              Portfolio Equity
+              <input name="equity" type="number" min="1000" step="100" value="100000" />
+            </label>
+            <label>
+              Per-Trade Risk %
+              <input name="risk_pct" type="number" min="0.1" max="5" step="0.1" value="1.0" />
+            </label>
+            <label>
+              Window Hours
+              <input name="window_hours" type="number" min="1" max="168" step="1" value="24" />
+            </label>
+            <button id="run-btn" type="submit">Run Now</button>
+          </form>
+          <p id="run-status" class="status-line">Idle</p>
+        </article>
+
+        <article class="card">
+          <h2>System Health</h2>
+          <div id="health-box" class="pill muted">Checking...</div>
+          <button id="refresh-health" class="ghost" type="button">Refresh Health</button>
+        </article>
+
+        <article class="card span-2">
+          <div class="card-head">
+            <h2>Latest Run</h2>
+            <button id="refresh-latest" class="ghost" type="button">Refresh</button>
+          </div>
+          <pre id="latest-json" class="mono-panel">Loading...</pre>
+        </article>
+
+        <article class="card span-2">
+          <h2>Memo Preview</h2>
+          <pre id="memo-preview" class="mono-panel">No memo loaded yet.</pre>
+        </article>
+
+        <article class="card span-2">
+          <div class="card-head">
+            <h2>Ask Codex</h2>
+            <div class="chat-toolbar">
+              <label class="inline-field">
+                Run
+                <select id="chat-run-select"></select>
+              </label>
+              <button id="chat-clear" class="ghost" type="button">Clear Chat</button>
+            </div>
+          </div>
+
+          <div id="chat-status" class="pill muted">Checking chat availability...</div>
+
+          <div id="chat-transcript" class="chat-transcript" aria-live="polite">
+            <p class="chat-placeholder">Ask follow-up questions about the selected analysis run.</p>
+          </div>
+
+          <form id="chat-form" class="chat-form">
+            <textarea
+              id="chat-input"
+              rows="3"
+              placeholder="Ask about regime, signals, risk controls, or setup rationale..."
+            ></textarea>
+            <button id="chat-send" type="submit">Send</button>
+          </form>
+        </article>
+      </section>
+    </main>
+
+    <script src="/ui/app.js" type="module"></script>
+  </body>
+</html>
